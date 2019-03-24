@@ -1,0 +1,6 @@
+opencv-contrib-python
+pillow
+numpy
+sklearn
+tornado
+peewee

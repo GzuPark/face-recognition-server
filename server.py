@@ -8,20 +8,20 @@ import os.path
 import uuid
 from PIL import Image
 import time
-import StringIO
+from io import StringIO
 import uuid
 import numpy
 import json
-from tornado.options import define, options
+from tornado.options import options
 import opencv
 
-define("port", default=8888, help="run on the given poort", type=int)
+options.define("port", default=8888, help="run on the given poort", type=int)
 
 class Application(tornado.web.Application):
   def __init__(self):
     handlers = [
-        #(r"/", MainHandler),
-        #(r"/facedetector", FaceDetectHandler),
+        (r"/main", MainHandler),
+        (r"/facedetector", FaceDetectHandler),
         (r"/", SetupHarvestHandler),
         (r"/harvesting", HarvestHandler),
         (r"/predict", PredictHandler),
@@ -114,8 +114,10 @@ def main():
   opencv.train()
   logging.info("Model trained")
   app = Application()
+  options.parse_command_line()
+  print(' -- app is listen on: {}'.format(options.port))
   app.listen(options.port)
-  tornado.ioloop.IOLoop.instance().start()
+  tornado.ioloop.IOLoop.current().start()
 
 if __name__ == "__main__":
   main()

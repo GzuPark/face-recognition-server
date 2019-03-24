@@ -5,3 +5,6 @@ tags
 *.swn
 *.swm
 *.pyc
+
+.DS_Store
+.vscode

@@ -49,7 +49,7 @@ Download the [AT&T face database](http://www.cl.cam.ac.uk/research/dtg/attarchiv
     cd data
     wget http://www.cl.cam.ac.uk/Research/DTG/attarchive/pub/data/att_faces.tar.Z
     tar zxvf att_faces.tar.Z
-    mv att_faces images
+    mv orl_faces images
 
 Copy `haarcascade_frontalface_alt.xml` from `<path to opencv source>/data/haarcascades/` to the data folder.
 
