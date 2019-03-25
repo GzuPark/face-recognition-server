@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  api:
+    image: python:latest
+    volumes:
+      - ${proj_path}:/root/face_recognition_server
+    working_dir: /root/face_recognition_server

@@ -76,7 +76,7 @@ class SetupHarvestHandler(tornado.web.RequestHandler):
       logging.error("No label, bailing out")
       return
     logging.info("Got label %s" %  name)
-    opencv.Label.get_or_create(name=name).persist()
+    opencv.Label.get_or_create(name=name).persist() # CHECK: AttributeError: 'tuple' object has no attribute 'persist'
     logging.info("Setting secure cookie %s" % name)
     self.set_secure_cookie('label', name)
     self.redirect("/")

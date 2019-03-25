@@ -42,16 +42,23 @@ Make sure the dependencies are met.
 * [Peewee](https://github.com/coleifer/peewee)
 * [scikit-learn](http://scikit-learn.org/stable/) (for running the crossvalidation)
 
-Create the database by issuing the following in the data folder `sqlite3 images.db < ../db/create_db.sql`.
-
-Download the [AT&T face database](http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html) and extract it to `data/images` before the server is started. This is needed to build the initial prediction model.
-
-    cd data
-    wget http://www.cl.cam.ac.uk/Research/DTG/attarchive/pub/data/att_faces.tar.Z
-    tar zxvf att_faces.tar.Z
-    mv orl_faces images
-
-Copy `haarcascade_frontalface_alt.xml` from `<path to opencv source>/data/haarcascades/` to the data folder.
-
-Run with `python server.py` and browse to http://localhost:8888 when the model has been trained.
-
+## How to use
+1. `chmod +x ./db/create_db.sql`
+2. Create the database by issuing the following in the data folder `cd data && sqlite3 images.db < ../db/create_db.sql`
+3. Download the [AT&T face database](http://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html) and extract it to `data/images` before the server is started. This is needed to build the initial prediction model
+```sh
+cd data
+wget http://www.cl.cam.ac.uk/Research/DTG/attarchive/pub/data/att_faces.tar.Z
+tar zxvf att_faces.tar.Z
+mv orl_faces images
+```
+4. Download `haarcascde_frontalface_alt.xml` in the data folder
+```sh
+cd data
+wget https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_alt.xml
+```
+5. Check `chmod +x *.sh`
+6. Run `./run-docker-compose.sh`
+7. (First time) Run `./install-python-libraries.sh`
+8. Run `./run-server.sh`
+9. Browse http://localhost:8888
