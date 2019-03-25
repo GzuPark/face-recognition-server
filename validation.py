@@ -6,7 +6,8 @@ import cv2
 import numpy as np
 
 from sklearn.base import BaseEstimator
-from sklearn import cross_validation as cval
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import precision_score
 import opencv
 
@@ -36,10 +37,10 @@ def read_images(path, sz=None):
             img = cv2.resize(img, sz)
           X.append(np.asarray(img, dtype=np.uint8))
           y.append(c)
-        except IOError, (errno, strerror):
-          print "IOError({0}): {1}".format(errno, strerror)
+        except IOError as e:
+          print("IOError({0})".format(e))
         except:
-          print "Unexpected error:" , sys.exc_info()[0]
+          print("Unexpected error:" , sys.exc_info()[0])
           raise
       c += 1
   return [X,y]
@@ -62,12 +63,12 @@ if __name__ == "__main__":
 
   [X, y] = opencv.load_images_from_db()
   y = np.asarray(y, dtype=np.int32)
-  cv = cval.StratifiedKFold(y, 10)
+  cv = StratifiedKFold(y, 10)
 
   estimator = FaceRecognizer()
 
-  precision_scores = cval.cross_val_score(estimator, X, y, score_func=precision_score, cv=cv)
-  print precision_scores
-  print sum(precision_scores)/len(precision_scores)
+  precision_scores = cross_val_score(estimator, X, y, score_func=precision_score, cv=cv)
+  print(precision_scores)
+  print(sum(precision_scores)/len(precision_scores))
 
 
